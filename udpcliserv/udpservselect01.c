@@ -1,20 +1,20 @@
 /* include udpservselect01 */
-#include	"unp.h"
+#include        "unp.h"
 
 int
 main(int argc, char **argv)
 {
-	int					listenfd, connfd, udpfd, nready, maxfdp1;
-	char				mesg[MAXLINE];
-	pid_t				childpid;
-	fd_set				rset;
-	ssize_t				n;
-	socklen_t			len;
-	const int			on = 1;
-	struct sockaddr_in	cliaddr, servaddr;
-	void				sig_chld(int);
+	int listenfd, connfd, udpfd, nready, maxfdp1;
+	char mesg[MAXLINE];
+	pid_t childpid;
+	fd_set rset;
+	ssize_t n;
+	socklen_t len;
+	const int on = 1;
+	struct sockaddr_in cliaddr, servaddr;
+	void                            sig_chld(int);
 
-		/* 4create listening TCP socket */
+	/* 4create listening TCP socket */
 	listenfd = Socket(AF_INET, SOCK_STREAM, 0);
 
 	bzero(&servaddr, sizeof(servaddr));
@@ -27,7 +27,7 @@ main(int argc, char **argv)
 
 	Listen(listenfd, LISTENQ);
 
-		/* 4create UDP socket */
+	/* 4create UDP socket */
 	udpfd = Socket(AF_INET, SOCK_DGRAM, 0);
 
 	bzero(&servaddr, sizeof(servaddr));
@@ -39,7 +39,7 @@ main(int argc, char **argv)
 /* end udpservselect01 */
 
 /* include udpservselect02 */
-	Signal(SIGCHLD, sig_chld);	/* must call waitpid() */
+	Signal(SIGCHLD, sig_chld);      /* must call waitpid() */
 
 	FD_ZERO(&rset);
 	maxfdp1 = max(listenfd, udpfd) + 1;
@@ -48,7 +48,7 @@ main(int argc, char **argv)
 		FD_SET(udpfd, &rset);
 		if ( (nready = select(maxfdp1, &rset, NULL, NULL, NULL)) < 0) {
 			if (errno == EINTR)
-				continue;		/* back to for() */
+				continue;               /* back to for() */
 			else
 				err_sys("select error");
 		}
@@ -56,13 +56,13 @@ main(int argc, char **argv)
 		if (FD_ISSET(listenfd, &rset)) {
 			len = sizeof(cliaddr);
 			connfd = Accept(listenfd, (SA *) &cliaddr, &len);
-	
-			if ( (childpid = Fork()) == 0) {	/* child process */
-				Close(listenfd);	/* close listening socket */
-				str_echo(connfd);	/* process the request */
+
+			if ( (childpid = Fork()) == 0) {        /* child process */
+				Close(listenfd);        /* close listening socket */
+				str_echo(connfd);       /* process the request */
 				exit(0);
 			}
-			Close(connfd);			/* parent closes connected socket */
+			Close(connfd);                  /* parent closes connected socket */
 		}
 
 		if (FD_ISSET(udpfd, &rset)) {

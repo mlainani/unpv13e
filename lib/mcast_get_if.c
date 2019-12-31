@@ -1,4 +1,4 @@
-#include	"unp.h"
+#include        "unp.h"
 
 int
 mcast_get_if(int sockfd)
@@ -9,14 +9,14 @@ mcast_get_if(int sockfd)
 		return(-1);
 	}
 
-#ifdef	IPV6
+#ifdef  IPV6
 	case AF_INET6: {
-		u_int		idx;
-		socklen_t	len;
+		u_int idx;
+		socklen_t len;
 
 		len = sizeof(idx);
 		if (getsockopt(sockfd, IPPROTO_IPV6, IPV6_MULTICAST_IF,
-					   &idx, &len) < 0)
+		               &idx, &len) < 0)
 			return(-1);
 		return(idx);
 	}
@@ -31,7 +31,7 @@ mcast_get_if(int sockfd)
 int
 Mcast_get_if(int sockfd)
 {
-	int		rc;
+	int rc;
 
 	if ( (rc = mcast_get_if(sockfd)) < 0)
 		err_sys("mcast_get_if error");

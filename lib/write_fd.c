@@ -1,18 +1,18 @@
 /* include write_fd */
-#include	"unp.h"
+#include        "unp.h"
 
 ssize_t
 write_fd(int fd, void *ptr, size_t nbytes, int sendfd)
 {
-	struct msghdr	msg;
-	struct iovec	iov[1];
+	struct msghdr msg;
+	struct iovec iov[1];
 
-#ifdef	HAVE_MSGHDR_MSG_CONTROL
+#ifdef  HAVE_MSGHDR_MSG_CONTROL
 	union {
-	  struct cmsghdr	cm;
-	  char				control[CMSG_SPACE(sizeof(int))];
+		struct cmsghdr cm;
+		char control[CMSG_SPACE(sizeof(int))];
 	} control_un;
-	struct cmsghdr	*cmptr;
+	struct cmsghdr  *cmptr;
 
 	msg.msg_control = control_un.control;
 	msg.msg_controllen = sizeof(control_un.control);
@@ -42,7 +42,7 @@ write_fd(int fd, void *ptr, size_t nbytes, int sendfd)
 ssize_t
 Write_fd(int fd, void *ptr, size_t nbytes, int sendfd)
 {
-	ssize_t		n;
+	ssize_t n;
 
 	if ( (n = write_fd(fd, ptr, nbytes, sendfd)) < 0)
 		err_sys("write_fd error");

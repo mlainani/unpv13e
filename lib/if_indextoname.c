@@ -1,4 +1,4 @@
-#include	"unp.h"
+#include        "unp.h"
 
 /*
  * This is a placeholder if the system does not provide this RFC 2133
@@ -15,7 +15,7 @@ if_indextoname(unsigned int index, char *name)
 char *
 If_indextoname(unsigned int index, char *name)
 {
-	char	*ptr;
+	char    *ptr;
 
 	if ( (ptr = if_indextoname(index, name)) == NULL)
 		err_quit("if_indextoname error for %d", index);

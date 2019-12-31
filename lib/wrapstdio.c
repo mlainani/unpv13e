@@ -2,7 +2,7 @@
  * Standard I/O wrapper functions.
  */
 
-#include	"unp.h"
+#include        "unp.h"
 
 void
 Fclose(FILE *fp)
@@ -14,7 +14,7 @@ Fclose(FILE *fp)
 FILE *
 Fdopen(int fd, const char *type)
 {
-	FILE	*fp;
+	FILE    *fp;
 
 	if ( (fp = fdopen(fd, type)) == NULL)
 		err_sys("fdopen error");
@@ -25,7 +25,7 @@ Fdopen(int fd, const char *type)
 char *
 Fgets(char *ptr, int n, FILE *stream)
 {
-	char	*rptr;
+	char    *rptr;
 
 	if ( (rptr = fgets(ptr, n, stream)) == NULL && ferror(stream))
 		err_sys("fgets error");
@@ -36,7 +36,7 @@ Fgets(char *ptr, int n, FILE *stream)
 FILE *
 Fopen(const char *filename, const char *mode)
 {
-	FILE	*fp;
+	FILE    *fp;
 
 	if ( (fp = fopen(filename, mode)) == NULL)
 		err_sys("fopen error");

@@ -1,13 +1,13 @@
-#include	"unp.h"
-#include	<time.h>
+#include        "unp.h"
+#include        <time.h>
 
 int
 main(int argc, char **argv)
 {
-	int					listenfd, connfd, i;
-	struct sockaddr_in	servaddr;
-	char				buff[MAXLINE];
-	time_t				ticks;
+	int listenfd, connfd, i;
+	struct sockaddr_in servaddr;
+	char buff[MAXLINE];
+	time_t ticks;
 
 	listenfd = Socket(AF_INET, SOCK_STREAM, 0);
 
@@ -23,10 +23,10 @@ main(int argc, char **argv)
 	for ( ; ; ) {
 		connfd = Accept(listenfd, (SA *) NULL, NULL);
 
-        ticks = time(NULL);
-        snprintf(buff, sizeof(buff), "%.24s\r\n", ctime(&ticks));
+		ticks = time(NULL);
+		snprintf(buff, sizeof(buff), "%.24s\r\n", ctime(&ticks));
 		for (i = 0; i < strlen(buff); i++)
-        	Write(connfd, &buff[i], 1);
+			Write(connfd, &buff[i], 1);
 
 		Close(connfd);
 	}

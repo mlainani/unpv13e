@@ -6,7 +6,7 @@
  * versions of BIND supply this function.
  */
 
-#include	"unp.h"
+#include        "unp.h"
 
 const char *
 hstrerror(int err)
@@ -24,7 +24,7 @@ hstrerror(int err)
 		return("Unknown server error");
 
 	if (err == NO_DATA)
-        return("No address associated with name");
+		return("No address associated with name");
 
 	return("unknown error");
 }

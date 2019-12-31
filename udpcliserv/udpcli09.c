@@ -1,11 +1,11 @@
-#include	"unp.h"
+#include        "unp.h"
 
 int
 main(int argc, char **argv)
 {
-	int					sockfd;
-	socklen_t			len;
-	struct sockaddr_in	cliaddr, servaddr;
+	int sockfd;
+	socklen_t len;
+	struct sockaddr_in cliaddr, servaddr;
 
 	if (argc != 2)
 		err_quit("usage: udpcli <IPaddress>");

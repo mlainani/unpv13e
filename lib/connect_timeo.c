@@ -1,13 +1,13 @@
 /* include connect_timeo */
-#include	"unp.h"
+#include        "unp.h"
 
-static void	connect_alarm(int);
+static void     connect_alarm(int);
 
 int
 connect_timeo(int sockfd, const SA *saptr, socklen_t salen, int nsec)
 {
-	Sigfunc	*sigfunc;
-	int		n;
+	Sigfunc *sigfunc;
+	int n;
 
 	sigfunc = Signal(SIGALRM, connect_alarm);
 	if (alarm(nsec) != 0)
@@ -18,8 +18,8 @@ connect_timeo(int sockfd, const SA *saptr, socklen_t salen, int nsec)
 		if (errno == EINTR)
 			errno = ETIMEDOUT;
 	}
-	alarm(0);					/* turn off the alarm */
-	Signal(SIGALRM, sigfunc);	/* restore previous signal handler */
+	alarm(0);                                       /* turn off the alarm */
+	Signal(SIGALRM, sigfunc);       /* restore previous signal handler */
 
 	return(n);
 }
@@ -27,7 +27,7 @@ connect_timeo(int sockfd, const SA *saptr, socklen_t salen, int nsec)
 static void
 connect_alarm(int signo)
 {
-	return;		/* just interrupt the connect() */
+	return;         /* just interrupt the connect() */
 }
 /* end connect_timeo */
 

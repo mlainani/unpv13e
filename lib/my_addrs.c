@@ -1,12 +1,12 @@
 /* include my_addrs */
-#include	"unp.h"
-#include	<sys/utsname.h>
+#include        "unp.h"
+#include        <sys/utsname.h>
 
 char **
 my_addrs(int *addrtype)
 {
-	struct hostent	*hptr;
-	struct utsname	myname;
+	struct hostent  *hptr;
+	struct utsname myname;
 
 	if (uname(&myname) < 0)
 		return(NULL);
@@ -22,7 +22,7 @@ my_addrs(int *addrtype)
 char **
 My_addrs(int *pfamily)
 {
-	char	**pptr;
+	char    **pptr;
 
 	if ( (pptr = my_addrs(pfamily)) == NULL)
 		err_sys("my_addrs error");

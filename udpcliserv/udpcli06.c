@@ -1,10 +1,10 @@
-#include	"unp.h"
+#include        "unp.h"
 
 int
 main(int argc, char **argv)
 {
-	int					sockfd;
-	struct sockaddr_in	servaddr;
+	int sockfd;
+	struct sockaddr_in servaddr;
 
 	if (argc != 2)
 		err_quit("usage: udpcli <IPaddress>");

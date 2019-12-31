@@ -1,11 +1,11 @@
 /* include sockfd_to_family */
-#include	"unp.h"
+#include        "unp.h"
 
 int
 sockfd_to_family(int sockfd)
 {
 	struct sockaddr_storage ss;
-	socklen_t	len;
+	socklen_t len;
 
 	len = sizeof(ss);
 	if (getsockname(sockfd, (SA *) &ss, &len) < 0)
@@ -17,7 +17,7 @@ sockfd_to_family(int sockfd)
 int
 Sockfd_to_family(int sockfd)
 {
-	int		rc;
+	int rc;
 
 	if ( (rc = sockfd_to_family(sockfd)) < 0)
 		err_sys("sockfd_to_family error");

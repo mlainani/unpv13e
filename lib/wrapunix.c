@@ -12,16 +12,16 @@
  * If your system's headers are not correct [i.e., the Solaris 2.5
  * <sys/socket.h> omits the "const" from the second argument to both
  * bind() and connect()], you'll get warnings of the form:
- *warning: passing arg 2 of `bind' discards `const' from pointer target type
- *warning: passing arg 2 of `connect' discards `const' from pointer target type
+ * warning: passing arg 2 of `bind' discards `const' from pointer target type
+ * warning: passing arg 2 of `connect' discards `const' from pointer target type
  */
 
-#include	"unp.h"
+#include        "unp.h"
 
 void *
 Calloc(size_t n, size_t size)
 {
-	void	*ptr;
+	void    *ptr;
 
 	if ( (ptr = calloc(n, size)) == NULL)
 		err_sys("calloc error");
@@ -45,7 +45,7 @@ Dup2(int fd1, int fd2)
 int
 Fcntl(int fd, int cmd, int arg)
 {
-	int	n;
+	int n;
 
 	if ( (n = fcntl(fd, cmd, arg)) == -1)
 		err_sys("fcntl error");
@@ -63,17 +63,17 @@ Gettimeofday(struct timeval *tv, void *foo)
 int
 Ioctl(int fd, int request, void *arg)
 {
-	int		n;
+	int n;
 
 	if ( (n = ioctl(fd, request, arg)) == -1)
 		err_sys("ioctl error");
-	return(n);	/* streamio of I_LIST returns value */
+	return(n);      /* streamio of I_LIST returns value */
 }
 
 pid_t
 Fork(void)
 {
-	pid_t	pid;
+	pid_t pid;
 
 	if ( (pid = fork()) == -1)
 		err_sys("fork error");
@@ -83,7 +83,7 @@ Fork(void)
 void *
 Malloc(size_t size)
 {
-	void	*ptr;
+	void    *ptr;
 
 	if ( (ptr = malloc(size)) == NULL)
 		err_sys("malloc error");
@@ -107,12 +107,12 @@ Mkstemp(char *template)
 	return i;
 }
 
-#include	<sys/mman.h>
+#include        <sys/mman.h>
 
 void *
 Mmap(void *addr, size_t len, int prot, int flags, int fd, off_t offset)
 {
-	void	*ptr;
+	void    *ptr;
 
 	if ( (ptr = mmap(addr, len, prot, flags, fd, offset)) == ((void *) -1))
 		err_sys("mmap error");
@@ -122,7 +122,7 @@ Mmap(void *addr, size_t len, int prot, int flags, int fd, off_t offset)
 int
 Open(const char *pathname, int oflag, mode_t mode)
 {
-	int		fd;
+	int fd;
 
 	if ( (fd = open(pathname, oflag, mode)) == -1)
 		err_sys("open error for %s", pathname);
@@ -139,7 +139,7 @@ Pipe(int *fds)
 ssize_t
 Read(int fd, void *ptr, size_t nbytes)
 {
-	ssize_t		n;
+	ssize_t n;
 
 	if ( (n = read(fd, ptr, nbytes)) == -1)
 		err_sys("read error");
@@ -177,7 +177,7 @@ Sigfillset(sigset_t *set)
 int
 Sigismember(const sigset_t *set, int signo)
 {
-	int		n;
+	int n;
 
 	if ( (n = sigismember(set, signo)) == -1)
 		err_sys("sigismember error");
@@ -201,7 +201,7 @@ Sigprocmask(int how, const sigset_t *set, sigset_t *oset)
 char *
 Strdup(const char *str)
 {
-	char	*ptr;
+	char    *ptr;
 
 	if ( (ptr = strdup(str)) == NULL)
 		err_sys("strdup error");
@@ -211,18 +211,18 @@ Strdup(const char *str)
 long
 Sysconf(int name)
 {
-	long	val;
+	long val;
 
-	errno = 0;		/* in case sysconf() does not change this */
+	errno = 0;              /* in case sysconf() does not change this */
 	if ( (val = sysconf(name)) == -1)
 		err_sys("sysconf error");
 	return(val);
 }
 
-#ifdef	HAVE_SYS_SYSCTL_H
+#ifdef  HAVE_SYS_SYSCTL_H
 void
 Sysctl(int *name, u_int namelen, void *oldp, size_t *oldlenp,
-	   void *newp, size_t newlen)
+       void *newp, size_t newlen)
 {
 	if (sysctl(name, namelen, oldp, oldlenp, newp, newlen) == -1)
 		err_sys("sysctl error");
@@ -239,7 +239,7 @@ Unlink(const char *pathname)
 pid_t
 Wait(int *iptr)
 {
-	pid_t	pid;
+	pid_t pid;
 
 	if ( (pid = wait(iptr)) == -1)
 		err_sys("wait error");
@@ -249,7 +249,7 @@ Wait(int *iptr)
 pid_t
 Waitpid(pid_t pid, int *iptr, int options)
 {
-	pid_t	retpid;
+	pid_t retpid;
 
 	if ( (retpid = waitpid(pid, iptr, options)) == -1)
 		err_sys("waitpid error");

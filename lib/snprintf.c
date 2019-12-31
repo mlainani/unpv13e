@@ -7,18 +7,18 @@
  * tries to detect overflow.
  */
 
-#include	"unp.h"
+#include        "unp.h"
 
-#include	<stdarg.h>		/* ANSI C header file */
+#include        <stdarg.h>              /* ANSI C header file */
 
 int
 snprintf(char *buf, size_t size, const char *fmt, ...)
 {
-	int			n;
-	va_list		ap;
+	int n;
+	va_list ap;
 
 	va_start(ap, fmt);
-	vsprintf(buf, fmt, ap);	/* Sigh, some vsprintf's return ptr, not length */
+	vsprintf(buf, fmt, ap); /* Sigh, some vsprintf's return ptr, not length */
 	n = strlen(buf);
 	va_end(ap);
 	if (n >= size)

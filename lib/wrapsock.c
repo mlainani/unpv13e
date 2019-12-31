@@ -12,20 +12,20 @@
  * If your system's headers are not correct [i.e., the Solaris 2.5
  * <sys/socket.h> omits the "const" from the second argument to both
  * bind() and connect()], you'll get warnings of the form:
- *warning: passing arg 2 of `bind' discards `const' from pointer target type
- *warning: passing arg 2 of `connect' discards `const' from pointer target type
+ * warning: passing arg 2 of `bind' discards `const' from pointer target type
+ * warning: passing arg 2 of `connect' discards `const' from pointer target type
  */
 
-#include	"unp.h"
+#include        "unp.h"
 
 int
 Accept(int fd, struct sockaddr *sa, socklen_t *salenptr)
 {
-	int		n;
+	int n;
 
 again:
 	if ( (n = accept(fd, sa, salenptr)) < 0) {
-#ifdef	EPROTO
+#ifdef  EPROTO
 		if (errno == EPROTO || errno == ECONNABORTED)
 #else
 		if (errno == ECONNABORTED)
@@ -72,12 +72,12 @@ Getsockopt(int fd, int level, int optname, void *optval, socklen_t *optlenptr)
 		err_sys("getsockopt error");
 }
 
-#ifdef	HAVE_INET6_RTH_INIT
+#ifdef  HAVE_INET6_RTH_INIT
 int
 Inet6_rth_space(int type, int segments)
 {
 	int ret;
-	
+
 	ret = inet6_rth_space(type, segments);
 	if (ret < 0)
 		err_quit("inet6_rth_space error");
@@ -154,7 +154,7 @@ Kevent(int kq, const struct kevent *changelist, int nchanges,
 	int ret;
 
 	if ((ret = kevent(kq, changelist, nchanges,
-					  eventlist, nevents, timeout)) < 0)
+	                  eventlist, nevents, timeout)) < 0)
 		err_sys("kevent error");
 	return ret;
 }
@@ -165,9 +165,9 @@ Kevent(int kq, const struct kevent *changelist, int nchanges,
 void
 Listen(int fd, int backlog)
 {
-	char	*ptr;
+	char    *ptr;
 
-		/*4can override 2nd argument with environment variable */
+	/*4can override 2nd argument with environment variable */
 	if ( (ptr = getenv("LISTENQ")) != NULL)
 		backlog = atoi(ptr);
 
@@ -176,11 +176,11 @@ Listen(int fd, int backlog)
 }
 /* end Listen */
 
-#ifdef	HAVE_POLL
+#ifdef  HAVE_POLL
 int
 Poll(struct pollfd *fdarray, unsigned long nfds, int timeout)
 {
-	int		n;
+	int n;
 
 	if ( (n = poll(fdarray, nfds, timeout)) < 0)
 		err_sys("poll error");
@@ -192,7 +192,7 @@ Poll(struct pollfd *fdarray, unsigned long nfds, int timeout)
 ssize_t
 Recv(int fd, void *ptr, size_t nbytes, int flags)
 {
-	ssize_t		n;
+	ssize_t n;
 
 	if ( (n = recv(fd, ptr, nbytes, flags)) < 0)
 		err_sys("recv error");
@@ -201,9 +201,9 @@ Recv(int fd, void *ptr, size_t nbytes, int flags)
 
 ssize_t
 Recvfrom(int fd, void *ptr, size_t nbytes, int flags,
-		 struct sockaddr *sa, socklen_t *salenptr)
+         struct sockaddr *sa, socklen_t *salenptr)
 {
-	ssize_t		n;
+	ssize_t n;
 
 	if ( (n = recvfrom(fd, ptr, nbytes, flags, sa, salenptr)) < 0)
 		err_sys("recvfrom error");
@@ -213,7 +213,7 @@ Recvfrom(int fd, void *ptr, size_t nbytes, int flags,
 ssize_t
 Recvmsg(int fd, struct msghdr *msg, int flags)
 {
-	ssize_t		n;
+	ssize_t n;
 
 	if ( (n = recvmsg(fd, msg, flags)) < 0)
 		err_sys("recvmsg error");
@@ -224,11 +224,11 @@ int
 Select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *exceptfds,
        struct timeval *timeout)
 {
-	int		n;
+	int n;
 
 	if ( (n = select(nfds, readfds, writefds, exceptfds, timeout)) < 0)
 		err_sys("select error");
-	return(n);		/* can return 0 on timeout */
+	return(n);              /* can return 0 on timeout */
 }
 
 void
@@ -240,7 +240,7 @@ Send(int fd, const void *ptr, size_t nbytes, int flags)
 
 void
 Sendto(int fd, const void *ptr, size_t nbytes, int flags,
-	   const struct sockaddr *sa, socklen_t salen)
+       const struct sockaddr *sa, socklen_t salen)
 {
 	if (sendto(fd, ptr, nbytes, flags, sa, salen) != (ssize_t)nbytes)
 		err_sys("sendto error");
@@ -249,10 +249,10 @@ Sendto(int fd, const void *ptr, size_t nbytes, int flags,
 void
 Sendmsg(int fd, const struct msghdr *msg, int flags)
 {
-	unsigned int	i;
-	ssize_t			nbytes;
+	unsigned int i;
+	ssize_t nbytes;
 
-	nbytes = 0;	/* must first figure out what return value should be */
+	nbytes = 0;     /* must first figure out what return value should be */
 	for (i = 0; i < msg->msg_iovlen; i++)
 		nbytes += msg->msg_iov[i].iov_len;
 
@@ -277,7 +277,7 @@ Shutdown(int fd, int how)
 int
 Sockatmark(int fd)
 {
-	int		n;
+	int n;
 
 	if ( (n = sockatmark(fd)) < 0)
 		err_sys("sockatmark error");
@@ -288,7 +288,7 @@ Sockatmark(int fd)
 int
 Socket(int family, int type, int protocol)
 {
-	int		n;
+	int n;
 
 	if ( (n = socket(family, type, protocol)) < 0)
 		err_sys("socket error");
@@ -299,7 +299,7 @@ Socket(int family, int type, int protocol)
 void
 Socketpair(int family, int type, int protocol, int *fd)
 {
-	int		n;
+	int n;
 
 	if ( (n = socketpair(family, type, protocol, fd)) < 0)
 		err_sys("socketpair error");

@@ -1,9 +1,9 @@
 /* include readline */
-#include	"unp.h"
+#include        "unp.h"
 
-static int	read_cnt;
-static char	*read_ptr;
-static char	read_buf[MAXLINE];
+static int read_cnt;
+static char     *read_ptr;
+static char read_buf[MAXLINE];
 
 static ssize_t
 my_read(int fd, char *ptr)
@@ -28,23 +28,23 @@ again:
 ssize_t
 readline(int fd, void *vptr, size_t maxlen)
 {
-	ssize_t	n, rc;
-	char	c, *ptr;
+	ssize_t n, rc;
+	char c, *ptr;
 
 	ptr = vptr;
 	for (n = 1; n < maxlen; n++) {
 		if ( (rc = my_read(fd, &c)) == 1) {
 			*ptr++ = c;
 			if (c == '\n')
-				break;	/* newline is stored, like fgets() */
+				break;  /* newline is stored, like fgets() */
 		} else if (rc == 0) {
 			*ptr = 0;
-			return(n - 1);	/* EOF, n - 1 bytes were read */
+			return(n - 1);  /* EOF, n - 1 bytes were read */
 		} else
-			return(-1);		/* error, errno set by read() */
+			return(-1);             /* error, errno set by read() */
 	}
 
-	*ptr = 0;	/* null terminate like fgets() */
+	*ptr = 0;       /* null terminate like fgets() */
 	return(n);
 }
 
@@ -60,7 +60,7 @@ readlinebuf(void **vptrptr)
 ssize_t
 Readline(int fd, void *ptr, size_t maxlen)
 {
-	ssize_t		n;
+	ssize_t n;
 
 	if ( (n = readline(fd, ptr, maxlen)) < 0)
 		err_sys("readline error");

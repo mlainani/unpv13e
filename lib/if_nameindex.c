@@ -1,4 +1,4 @@
-#include	"unp.h"
+#include        "unp.h"
 
 /*
  * This is a placeholder if the system does not provide this RFC 2133
@@ -20,7 +20,7 @@ if_freenameindex(struct if_nameindex *ptr)
 struct if_nameindex *
 If_nameindex(void)
 {
-	struct if_nameindex	*ifptr;
+	struct if_nameindex     *ifptr;
 
 	if ( (ifptr = if_nameindex()) == NULL)
 		err_quit("if_nameindex error");
